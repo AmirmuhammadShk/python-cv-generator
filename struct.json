@@ -1,0 +1,47 @@
+{
+  "datetime": "2025-08-06T14:30:00",  // ISO format
+  "applyFor": {
+    "role": "",
+    "company": "",
+    "location": ""
+  },
+  "status": "",
+
+  "name": "",
+  "role": "",
+  "contact": {
+    "email": "",
+    "linkedin": "",
+    "github": "",
+    "personalWebsite": ""
+  },
+  "summary": "",
+  "experiences": [
+    {
+      "role": "",
+      "company": "",
+      "location": "",
+      "type": "full-time | part-time",
+      "workType": "remote | on-site | hybrid",
+      "start": { "year": "", "month": "" },
+      "end": { "year": "", "month": "" },  // or "present"
+      "detail": ""
+    }
+  ],
+  "coreSkills": [
+    {
+      "category": "",
+      "skills": ["", ""]
+    }
+  ],
+  "education": {
+    "grade": "",
+    "university": ""
+  },
+  "languages": [
+    {
+      "language": "",
+      "level": ""
+    }
+  ]
+}
