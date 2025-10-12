@@ -1,0 +1,103 @@
+{
+  "type": "object",
+  "properties": {
+    "applyDetail": {
+      "type": "object",
+      "properties": {
+        "role": { "type": "string" },
+        "company": { "type": "string" },
+        "location": { "type": "string" },
+        "jobType": { "type": "string" },
+        "salary": { "type": "string" },
+        "applyDateTime": { "type": "string" },
+        "status": { "type": "string" },
+        "link": { "type": "string" },
+        "address": { "type": "string" }
+      }
+    },
+    "name": { "type": "string" },
+    "role": { "type": "string" },
+    "contact": {
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "linkedin": { "type": "string" },
+        "github": { "type": "string" },
+        "personalWebsite": { "type": "string" },
+        "address": { "type": "string" },
+        "phone": { "type": "string" }
+      }
+    },
+    "summary": { "type": "string" },
+    "experiences": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "role": { "type": "string" },
+          "company": { "type": "string" },
+          "location": { "type": "string" },
+          "type": { "type": "string" },
+          "workType": { "type": "string" },
+          "start": {
+            "type": "object",
+            "properties": {
+              "year": { "type": "string" },
+              "month": { "type": "string" }
+            }
+          },
+          "end": { "type": "string" },
+          "detail": { "type": "string" }
+        }
+      }
+    },
+    "coreSkills": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "category": { "type": "string" },
+          "skills": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "priority": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "education": {
+      "type": "object",
+      "properties": {
+        "grade": { "type": "string" },
+        "university": { "type": "string" },
+        "start": {
+          "type": "object",
+          "properties": {
+            "year": { "type": "string" },
+            "month": { "type": "string" }
+          }
+        },
+        "end": {
+          "type": "object",
+          "properties": {
+            "year": { "type": "string" },
+            "month": { "type": "string" }
+          }
+        }
+      }
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "language": { "type": "string" },
+          "level": { "type": "string" }
+        }
+      }
+    }
+  }
+}

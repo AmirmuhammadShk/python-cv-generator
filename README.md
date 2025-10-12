@@ -62,3 +62,7 @@ If --output is not specified, it defaults to cv_output.pdf.
         education, languages[]
 
 A sample template is recommended for structure guidance (not included in this repo).
+#API
+#Give job data
+#give profile data
+#create cv
