@@ -1,0 +1,80 @@
+{
+  "name": "John Doe",
+  "role": "Senior Software Engineer / AI Systems Architect",
+  "contact": {
+    "email": "john.doe@example.com",
+    "linkedin": "https://www.linkedin.com/in/johndoe",
+    "github": "https://github.com/johndoe",
+    "personalWebsite": "https://www.johndoedev.com",
+    "address": "Cambridge, Cambridgeshire, United Kingdom",
+    "phone": "+44 7700 900123"
+  },
+  "summary": "Senior Software Engineer with over 9 years of experience in building cloud-native AI platforms, large-scale distributed systems, and intelligent automation solutions. Skilled in integrating LLMs, ML models, and microservice architectures to deliver scalable, high-performance enterprise systems. Passionate about bridging technology and business strategy to create meaningful impact.",
+  "experiences": [
+    {
+      "role": "Senior Software Engineer",
+      "company": "Remolab",
+      "location": "Paris, France",
+      "type": "Full-time",
+      "workType": "Remote",
+      "start": { "year": "2024", "month": "01" },
+      "end": "Present",
+      "detail": "Engineered cloud-native AI platforms integrating multi-agent LLM systems and RAG pipelines to automate complex compliance workflows and data intelligence processes."
+    },
+    {
+      "role": "Software Engineer (Contract)",
+      "company": "Remotion.live",
+      "location": "Paris, France",
+      "type": "Contract",
+      "workType": "Hybrid",
+      "start": { "year": "2023", "month": "08" },
+      "end": "2024-01",
+      "detail": "Developed AI-driven conversational systems and scalable inference pipelines achieving sub-second latency and 99.98% uptime across distributed microservices."
+    },
+    {
+      "role": "Backend & DevOps Engineer",
+      "company": "APK Group",
+      "location": "Yazd, Iran",
+      "type": "Full-time",
+      "workType": "On-site",
+      "start": { "year": "2020", "month": "11" },
+      "end": "2023-09",
+      "detail": "Led backend and infrastructure development for high-performance network security platforms handling up to 40 Gbps, with automated CI/CD and observability pipelines."
+    }
+  ],
+  "coreSkills": [
+    {
+      "category": "Backend Engineering",
+      "skills": ["Python", "Rust", "FastAPI", "Django", "Flask", "Microservices", "Async I/O", "gRPC", "REST APIs"]
+    },
+    {
+      "category": "Cloud & DevOps",
+      "skills": ["AWS", "GCP", "Azure", "Docker", "Kubernetes", "Terraform", "Ansible", "CI/CD", "Prometheus", "Grafana"]
+    },
+    {
+      "category": "Artificial Intelligence & ML",
+      "skills": ["LLMs", "RAG", "LangChain", "Reinforcement Learning", "Machine Learning", "NLP", "Agentic AI", "Workflow Automation"]
+    },
+    {
+      "category": "Databases",
+      "skills": ["PostgreSQL", "MongoDB", "Redis", "Elasticsearch", "FAISS", "Pinecone"]
+    }
+  ],
+  "priority": [
+    "AI/ML Integration",
+    "Cloud-Native Architecture",
+    "Agentic System Design",
+    "Business-Aligned Engineering",
+    "Scalable Automation"
+  ],
+  "education": {
+    "grade": "Bachelor of Engineering (B.E.) in Computer Software Engineering",
+    "university": "Science & Arts University",
+    "start": { "year": "2010", "month": "09" },
+    "end": { "year": "2014", "month": "06" }
+  },
+  "languages": [
+    { "language": "English", "level": "Professional Working Proficiency" },
+    { "language": "French", "level": "Intermediate" }
+  ]
+}

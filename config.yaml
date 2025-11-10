@@ -1,5 +1,4 @@
-# Global configuration for your project
 paths:
-  applies_dir: "/home/amir/Work/Personal/Jobuine/applies"
-  store_file: "/home/amir/Work/Personal/Jobuine/applies/store.xlsx"
-current_apply_dir: "/home/amir/Work/Personal/Jobuine/applies/2025_11_10/apl_test"
+  applies_dir: path to apply store dir
+  store_file: path to loggin xlsx store.xlsx
+current_apply_dir: leave empty
