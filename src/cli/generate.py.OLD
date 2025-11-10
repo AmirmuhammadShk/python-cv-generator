@@ -9,9 +9,9 @@ from reportlab.platypus import (
     SimpleDocTemplate, Paragraph, Spacer, ListFlowable, ListItem,
     Table, TableStyle, HRFlowable, KeepTogether
 )
-from core.config import get_store_file, get_current_apply_dir
+from core.config import get_store_file
 from reportlab.lib.units import inch
-from reportlab.lib.enums import TA_LEFT
+from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib import colors
 from reportlab.pdfbase.pdfmetrics import stringWidth
 
@@ -32,12 +32,14 @@ def load_json(path: str) -> dict:
         return json.load(f)
 
 def safe_name_from_json(data: dict, fallback_base: str) -> str:
+    """Use 'name' from JSON, or fallback to filename, removing spaces."""
     name = (data.get("name") or "").strip()
     if not name:
         name = os.path.splitext(os.path.basename(fallback_base))[0]
     return name.replace(" ", "")
 
 def format_apply_datetime(dt_str: str) -> str:
+    """Convert ISO or string datetime to 'Sun Oct 12 2025 19:15' format."""
     if not dt_str:
         return ""
     try:
@@ -196,19 +198,30 @@ def create_cv_pdf(data: dict, output_pdf_path: str):
     content.append(Paragraph(data.get('name', ''), header_style))
     content.append(Paragraph(data.get('role', ''), role_style))
 
+  
+
     # Contact
     contact = { (k.lower() if isinstance(k, str) else k): v for k, v in (data.get('contact', {}) or {}).items() }
+    contact_link_style = ParagraphStyle('ContactLink', parent=normal, alignment=TA_LEFT, fontSize=9)
     contact_text_style = ParagraphStyle('ContactText', parent=normal, alignment=TA_LEFT, fontSize=9)
+
     line = []
     linkedin = (contact.get("linkedin") or "").strip()
-    if linkedin: line.append(f"LinkedIn: {linkedin}")
+    if linkedin:
+        line.append(f"LinkedIn: {linkedin}")
     email = (contact.get("email") or "").strip()
-    if email: line.append(f"Email: {email}")
+    if email:
+        line.append(f"Email: {email}")
     address = (contact.get("address") or "").strip()
-    if address: line.append(f"Address: {address}")
+    if address:
+        line.append(f"Address: {address}")
     phone = (contact.get("phone") or "").strip()
-    if phone: line.append(f"Mobile: {phone}")
-    if line: content.append(Paragraph("<br/>".join(line), contact_text_style))
+    if phone:
+        line.append(f"Mobile: {phone}")
+
+    if line:
+        content.append(Paragraph("<br/>".join(line), contact_text_style))
+
 
     # Summary
     content.append(section_rule())
@@ -287,16 +300,20 @@ def create_cv_pdf(data: dict, output_pdf_path: str):
 # MAIN
 # =========================
 def main():
-    parser = argparse.ArgumentParser(description="Generate PDFs and append applyDetail data into the global Excel file.")
+    parser = argparse.ArgumentParser(
+        description="Generate PDFs and append applyDetail data into a global Excel file."
+    )
+
+    parser.add_argument("--dir", "-d", required=True, help="Directory containing JSON files")
+    parser.add_argument("--excel-name", default="All_applyDetail.xlsx", help="Excel file name stored next to this script")
     args = parser.parse_args()
 
-    # Load current directory from config.yaml
-    try:
-        in_dir = str(get_current_apply_dir())
-    except Exception as e:
-        print(e)
-        sys.exit(1)
+    # in_dir = args.dir
 
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.abspath(os.path.join(script_dir, ".."))
+
+    in_dir = os.path.abspath(os.path.join(project_root, in_dir))
     if not os.path.isdir(in_dir):
         print(f"❌ '{in_dir}' is not a directory.", file=sys.stderr)
         sys.exit(1)
@@ -306,10 +323,14 @@ def main():
         print(f"⚠️ No .json files found in '{in_dir}'.")
         sys.exit(0)
 
-    # Excel path from config
+    # Excel setup
+    # excel_path = os.path.join(script_dir, args.excel_name)
+    # Save Excel in the data/ directory at project root
+    # excel_path = os.path.join(project_root, "data", args.excel_name)
     excel_path = str(get_store_file())
     wb, ws = open_or_create_excel(excel_path)
 
+    # Generate PDFs
     pdf_count = 0
     for path in json_files:
         try:
@@ -321,6 +342,7 @@ def main():
         except Exception as e:
             print(f"⚠️ Skipping PDF for '{os.path.basename(path)}': {e}", file=sys.stderr)
 
+    # Append Excel rows
     added = append_applydetail_rows(in_dir, ws)
     if added:
         autosize_columns(ws)
@@ -331,7 +353,6 @@ def main():
         print(f"⚠️ No applyDetail found; Excel ensured at {excel_path}")
 
     print(f"✅ PDFs created: {pdf_count}")
-    print(f"📂 Processed directory: {in_dir}")
 
 if __name__ == "__main__":
     main()

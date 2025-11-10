@@ -25,3 +25,11 @@ def get_applies_dir() -> Path:
     if not applies_path:
         raise KeyError("❌ 'applies_dir' not defined in config.yaml")
     return Path(applies_path).expanduser().resolve()
+
+
+def get_current_apply_dir() -> Path:
+    cfg = load_config()
+    current_dir = cfg.get("current_apply_dir")
+    if not current_dir:
+        raise KeyError("❌ 'current_apply_dir' not found in config.yaml. Run apply.sh first.")
+    return Path(current_dir).expanduser().resolve()

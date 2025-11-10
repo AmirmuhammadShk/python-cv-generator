@@ -38,8 +38,9 @@ def main():
 
     # generate
     gen_parser = subparsers.add_parser("generate", help="Generate PDFs and update Excel")
-    gen_parser.add_argument("--dir", required=True, help="Directory with JSON files")
-    gen_parser.add_argument("--excel-name", default="All_applyDetail.xlsx", help="Excel filename")
+    # ⛔ removed --dir argument because directory is now stored as JOBUINE_APPLY_DIR
+    # gen_parser.add_argument("--dir", required=True, help="Directory with JSON files")
+    gen_parser.add_argument("--excel-name", default="All_applyDetail.xlsx", help="Excel filename (ignored if store_file is set in config.yaml)")
 
     args, extra = parser.parse_known_args()
 
@@ -48,8 +49,8 @@ def main():
     elif args.command == "check":
         run_script("check", ["--search", args.search])
     elif args.command == "generate":
-        cmd_args = ["--dir", args.dir, "--excel-name", args.excel_name]
-        run_script("generate", cmd_args)
+        # 🧠 No longer pass directory arguments — generate.py uses JOBUINE_APPLY_DIR automatically
+        run_script("generate", [])
     else:
         parser.print_help()
 
