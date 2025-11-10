@@ -1,0 +1,184 @@
+prepare this cv json :
+{
+  "applyDetail": {
+    "role": "Senior Technical Lead",
+    "company": "Softwire",
+    "location": "United Kingdom (Remote/Flexible)",
+    "jobType": "Full-time",
+    "salary": "",
+    "applyDateTime": "2025-10-14T00:00:00Z",
+    "status": "Targeting",
+    "link": "",
+    "address": "Remote (UK-wide)"
+  },
+  "name": "Amir Shakeri",
+  "role": "Software Engineer · Cloud/DevOps Specialist",
+  "contact": {
+    "email": "amirmuhammadshk@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/amirmuhammadshk/",
+    "github": "https://github.com/AmirmuhammadShk",
+    "personalWebsite": "",
+    "address": "Cambridge, United Kingdom",
+    "phone": "+447760670708"
+  },
+  "summary": "Software Engineer and Cloud/DevOps Specialist with 9+ years of experience building scalable backend systems, automation pipelines, and AI-based platforms. Skilled in distributed architectures, performance optimization, and multi-cloud environments. Experienced in integrating LLMs and RAG pipelines into production systems to improve automation and data-driven workflows. Focused on reliability, measurable impact, and practical engineering outcomes.",
+  "experiences": [
+    {
+      "role": "Software Engineer",
+      "company": "Remolab",
+      "location": "Paris, France",
+      "type": "Full-time",
+      "workType": "Remote",
+      "start": { "year": "2024", "month": "01" },
+      "end": "Present",
+      "detail": "- Designed and implemented AI systems using LLMs, RAG pipelines, and multi-agent frameworks, improving workflow automation efficiency by 40%.\n- Engineered scalable backend infrastructure on GCP and Azure, enhancing reliability by 30%.\n- Created orchestration pipelines with asynchronous I/O, reducing latency by 25%.\n- Automated provisioning and deployments using Terraform, Ansible, and CI/CD, decreasing release time from 1 hour to under 10 minutes.\n- Integrated LangChain and AutoGen, accelerating AI rollout by 50%."
+    },
+    {
+      "role": "Software Engineer",
+      "company": "Remotion.live",
+      "location": "Paris, France",
+      "type": "Full-time",
+      "workType": "Remote",
+      "start": { "year": "2023", "month": "09" },
+      "end": { "year": "2024", "month": "04" },
+      "detail": "- Created an AI-powered recommendation engine with LLMs and behavioral analytics, improving personalization accuracy by 35%.\n- Implemented backend systems for real-time inference with 99.98% uptime and 40% lower latency.\n- Deployed Kubernetes and Docker CI/CD pipelines enabling continuous delivery with zero downtime.\n- Optimized caching layers and queries, increasing throughput by 45% and cutting infrastructure costs by 15%."
+    },
+    {
+      "role": "Software Engineer",
+      "company": "APK Group (Amn Pardazan Kavir)",
+      "location": "Yazd, Iran",
+      "type": "Full-time",
+      "workType": "On-site",
+      "start": { "year": "2020", "month": "11" },
+      "end": { "year": "2023", "month": "09" },
+      "detail": "- Conducted R&D for networking and kernel optimization, achieving 40 Gbps firewall throughput with hardware acceleration.\n- Automated monitoring and deployment workflows, reducing delivery cycles by 20%.\n- Managed Linux/FreeBSD infrastructure supporting 1,000+ concurrent sessions with 99.99% uptime.\n- Improved kernel modules and zero-copy packet handling, reducing latency by 35%."
+    },
+    {
+      "role": "Backend Developer",
+      "company": "Saafaa",
+      "location": "Yazd, Iran",
+      "type": "Full-time",
+      "workType": "On-site",
+      "start": { "year": "2019", "month": "03" },
+      "end": { "year": "2020", "month": "11" },
+      "detail": "- Constructed backend architecture for geospatial data management, increasing query accuracy by 40%.\n- Designed secure transaction modules and automation layers to enhance data consistency.\n- Created an AI-based irrigation system that reduced water consumption by 50% using predictive analytics and IoT integration."
+    },
+    {
+      "role": "Backend Developer",
+      "company": "Boshrapardaz",
+      "location": "Yazd, Iran",
+      "type": "Part-time",
+      "workType": "On-site",
+      "start": { "year": "2016", "month": "10" },
+      "end": { "year": "2018", "month": "10" },
+      "detail": "- Produced backend systems for web and VoIP services, improving stability and user satisfaction by 25%.\n- Implemented peer-to-peer VoIP frameworks using ejabberd and Asterisk, reducing call latency.\n- Automated payroll operations, cutting processing time by 60%.\n- Added ELK-based analytics dashboards for real-time monitoring and insights."
+    },
+    {
+      "role": "Backend Developer",
+      "company": "Freelance",
+      "location": "Yazd, Iran",
+      "type": "Part-time",
+      "workType": "Remote",
+      "start": { "year": "2014", "month": "09" },
+      "end": { "year": "2016", "month": "09" },
+      "detail": "- Delivered backend applications for small businesses focused on performance and reliability.\n- Enhanced database design and queries, increasing efficiency by 30%.\n- Set up version control and CI/CD workflows, reducing deployment errors by 40%."
+    }
+  ],
+  "coreSkills": [
+    {
+      "category": "Backend",
+      "skills": ["Python", "Rust", "C", "FastAPI", "Django", "gRPC/REST APIs", "Async I/O", "Microservices", "Event-driven systems"]
+    },
+    {
+      "category": "Frontend",
+      "skills": ["React", "JavaScript", "TypeScript", "Next.js", "Component-based architecture"]
+    },
+    {
+      "category": "DevOps and Cloud",
+      "skills": ["AWS", "Azure", "GCP", "Docker", "Kubernetes", "Terraform", "Ansible", "NGINX", "Linux/FreeBSD", "CI/CD automation", "GitHub Actions", "GitLab CI", "Jenkins"]
+    },
+    {
+      "category": "AI",
+      "skills": ["LLMs", "RAG pipelines", "LangChain", "Semantic Kernel", "AutoGen", "Data streaming", "Workflow automation"]
+    },
+    {
+      "category": "Databases",
+      "skills": ["PostgreSQL", "MongoDB", "Redis", "Cassandra", "Elasticsearch", "Schema design", "Query optimization"]
+    },
+    {
+      "category": "Other",
+      "skills": ["Cloud security", "Performance testing", "Incident response", "Monitoring and observability", "Secrets management", "Agile delivery", "Team collaboration"]
+    }
+  ],
+  "priority": [
+    "Design and maintain backend systems using Python, FastAPI, and Django",
+    "Develop APIs and microservices for scalable platforms",
+    "Collaborate on frontend integration with React and TypeScript",
+    "Automate infrastructure using Docker, Kubernetes, and Terraform",
+    "Manage CI/CD pipelines and cloud deployments across AWS, Azure, and GCP",
+    "Implement AI-driven features using LLMs and RAG architectures",
+    "Optimize databases and queries in PostgreSQL, MongoDB, and Redis",
+    "Maintain observability, reliability, and performance under load",
+    "Apply secure practices in software and cloud environments",
+    "Contribute to agile processes and mentor team members"
+  ],
+  "education": {
+    "grade": "Bachelor of Engineering (BE), Computer Software Engineering",
+    "university": "Science & Arts University",
+    "start": { "year": "", "month": "" },
+    "end": { "year": "", "month": "" }
+  },
+  "languages": [
+    { "language": "English", "level": "Professional" }
+  ]
+}
+
+
+For this job description:
+
+About the job
+
+SR2 are currently looking for a experienced Senior Software Engineer for a fast-growing AI start-up in London.
+
+
+    Location: Central London (2-3 days a week onsite).
+    Salary: £75,000 - 85,000. 
+
+
+Your Role:
+
+    Building and maintaining features across the backend (Python, Java or NodeJS). 
+    Working across all three cloud platforms (AWS, GCP, Azure) and deploying applications in a cloud environment.
+    Work closely with senior engineers to design, build, and maintain back-end services and systems that support AI-powered products, all whilst meeting tight deadlines. 
+    Designing, developing, and deploying scalable APIs.
+    Contributing to system architecture and technical strategy.
+    Writing, testing, and shipping high-quality production code. 
+    Participating in code reviews and improving engineering processes.
+    Continuously learn and apply new technologies and techniques to improve back-end infrastructure and processes. 
+
+
+Ideal Candidate: 
+
+    BSc in Computer Science, Engineering, or a related field. 
+    3-5 years of experience in back-end development or related field, with a focus on server-side technologies. 
+    Experience in a fast-paced SaaS or tech environment, focusing on building and scaling back-end systems. 
+    Understanding of security best practices for back-end development.
+    Knowledge of machine learning concepts and the ability to collaborate with data scientists to optimize AI models. 
+
+
+You must have full right to work in the UK to apply for this role.
+
+
+If interested, please apply with your updated CV and we’ll line up a call to discuss the details.
+
+note : Do not change Experiences, Do not Change Summary , Do not Change My name and my role and contact detail, Just Optmize Skills and change applyDetailm Do not Change Skills Categories name
+note : do not change format 
+note : Do not add anything related to .Net, C# or Golang or Java Or Angular
+note :  make skills section completly match by job
+note : do not leave any category empty, 
+note : today is oct 28 2025 
+note : just give me changed sections
+note : company name : SR2 
+
+
+note : if in job descrion said send cv to email or somthing else, tell me after giving json

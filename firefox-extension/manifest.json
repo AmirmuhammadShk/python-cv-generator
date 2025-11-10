@@ -1,0 +1,12 @@
+
+{
+  "manifest_version": 1,
+  "name": "smart-apply",
+  "version": "1.0.0",
+  "description": "Login → load/save settings from API → apply flow with prompt copy & CV creation.",
+  "permissions": ["storage", "clipboardWrite"],
+  "browser_action": {
+    "default_title": "smart-apply",
+    "default_popup": "popup.html"
+  }
+}

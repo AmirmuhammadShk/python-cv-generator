@@ -1,0 +1,340 @@
+  You are given:
+  1) A CV JSON (CV_JSON)
+  2) A job description (WORK_DESCRIPTION)
+  3) Two placeholders: DATE (today’s ISO date) and NAME (company name).
+
+  Your task: return ONLY the changed sections of the JSON needed to target this job, with no extra text before or after the JSON. After the JSON, if—and only if—the job description explicitly says to send the CV via email or another channel, write a single line noting that instruction and the address/URL.
+
+  Hard constraints:
+  - Do NOT modify: experiences, summary, name, role, contact.
+  - Only modify: applyDetail and coreSkills.
+  - Do NOT change skill category names. You may reorder or edit the skills lists inside each category.
+  - Do NOT add anything related to .NET, C#, Golang, Java, or Angular.
+  - No category may be empty.
+  - Keep the exact JSON structure and formatting (valid JSON). Output must be only the changed sections object(s), not the entire CV.
+  - Locale: use UK spelling where applicable.
+
+  How to update applyDetail:
+  - role: set to the job title from WORK_DESCRIPTION (fallback: keep existing if not specified).
+  - company: set to NAME.
+  - location: use the job’s stated location (fallback: “United Kingdom (Remote/Flexible)”).
+  - jobType: infer (e.g., “Full-time”, “Contract”) from the post (fallback: keep existing).
+  - salary: fill if the post provides a figure/range; else "".
+  - applyDateTime: set to DATE in ISO format (e.g., 2025-10-28T00:00:00Z).
+  - status: set to "Targeting".
+  - link: put the job post/application URL if present; else "".
+  - address: mirror any on-site/remote detail from the post (e.g., “Remote (UK-wide)”).
+
+  How to optimize coreSkills:
+  - Goal: make each category’s skills list tightly match the job description while staying truthful to the candidate’s background and avoiding forbidden tech.
+  - Prefer exact matches to the job’s keywords; include close synonyms the job would accept (e.g., “IaC (Terraform)” if it says “Infrastructure as Code”).
+  - Keep categories: Backend, Frontend, DevOps and Cloud, AI, Databases, Other.
+  - You may reorder skills for relevance, remove less relevant ones, and add closely related items the candidate plausibly has (based on CV), but never add .NET/C#/Go/Java/Angular.
+  - Ensure every category remains non-empty (at least 1–3 highly relevant items; 6–10 max per category).
+  - Use concise, recruiter-friendly phrasing (e.g., “CI/CD (GitHub Actions, GitLab CI)”, “Kubernetes”, “AWS”, “FastAPI”, “PostgreSQL”, “Observability (ELK/Prometheus/Grafana)”, “Security (Secrets mgmt, IAM)”).
+
+  Output format:
+  - Return only the modified sections as a single valid JSON object with these top-level keys present only if modified:
+    - "applyDetail": { ... }
+    - "coreSkills": [ ... ]
+  - After the JSON, if the job post instructs to email or use a special portal, add one plain sentence on a new line, e.g.:
+    Instruction: Send your CV to hiring@company.com
+  - No other commentary.
+
+  Inputs:
+  - CV_JSON:
+  {
+    "name": "Amir Shakeri",
+    "role": "Software Engineer · Cloud/DevOps Specialist",
+    "contact": {
+      "email": "amirmuhammadshk@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/amirmuhammadshk/",
+      "github": "",
+      "personalWebsite": "",
+      "address": "Cambridge, Cambridgeshire, United Kingdom",
+      "phone": "+44 77 6067 0708"
+    },
+    "applyDetail": {
+      "role": "Senior Technical Lead",
+      "company": "Softwire",
+      "location": "United Kingdom (Remote/Flexible)",
+      "jobType": "Full-time",
+      "salary": "",
+      "applyDateTime": "2025-10-14T00:00:00Z",
+      "status": "Targeting",
+      "link": "",
+      "address": "Remote (UK-wide)"
+    },
+    "coreSkills": [
+      {
+        "category": "Backend",
+        "skills": [
+          "Python",
+          "Rust",
+          "C",
+          "FastAPI",
+          "Django",
+          "gRPC/REST APIs",
+          "Async I/O",
+          "Microservices",
+          "Event-driven systems"
+        ]
+      },
+      {
+        "category": "Frontend",
+        "skills": [
+          "React",
+          "JavaScript",
+          "TypeScript",
+          "Next.js",
+          "Component-based architecture"
+        ]
+      },
+      {
+        "category": "DevOps and Cloud",
+        "skills": [
+          "AWS",
+          "Azure",
+          "GCP",
+          "Docker",
+          "Kubernetes",
+          "Terraform",
+          "Ansible",
+          "NGINX",
+          "Linux/FreeBSD",
+          "CI/CD automation",
+          "GitHub Actions",
+          "GitLab CI",
+          "Jenkins"
+        ]
+      },
+      {
+        "category": "AI",
+        "skills": [
+          "LLMs",
+          "RAG pipelines",
+          "LangChain",
+          "Semantic Kernel",
+          "AutoGen",
+          "Data streaming",
+          "Workflow automation"
+        ]
+      },
+      {
+        "category": "Databases",
+        "skills": [
+          "PostgreSQL",
+          "MongoDB",
+          "Redis",
+          "Cassandra",
+          "Elasticsearch",
+          "Schema design",
+          "Query optimization"
+        ]
+      },
+      {
+        "category": "Other",
+        "skills": [
+          "Cloud security",
+          "Performance testing",
+          "Incident response",
+          "Monitoring and observability",
+          "Secrets management",
+          "Agile delivery",
+          "Team collaboration"
+        ]
+      }
+    ],
+    "summary": "Software Engineer and Cloud/DevOps Specialist with 9+ years of experience building scalable backend systems, automation pipelines, and AI-based platforms. Skilled in distributed architectures, performance optimization, and multi-cloud environments. Experienced in integrating LLMs and RAG pipelines into production systems to improve automation and data-driven workflows. Focused on reliability, measurable impact, and practical engineering outcomes.",
+    "experiences": [
+      {
+        "role": "Software Engineer",
+        "company": "Remolab",
+        "location": "Paris, France",
+        "type": "Full-time",
+        "workType": "",
+        "start": {
+          "year": "2024",
+          "month": "01"
+        },
+        "end": "Present",
+        "detail": "- Built and deployed AI-driven automation platforms leveraging LLMs, RAG pipelines, and multi-agent systems—boosting efficiency by 40%.\n- Scaled backend infrastructure across GCP and Azure to achieve 30% higher system reliability.\n- Adopted asynchronous orchestration pipelines to reduce latency by 25%.\n- Streamlined deployments with Terraform, Ansible, and CI/CD, slashing release time from 1 hour to under 10 minutes.\n- Integrated LangChain and AutoGen, enabling 50% faster AI rollout cycles."
+      },
+      {
+        "role": "Software Engineer",
+        "company": "Remotion.live",
+        "location": "Paris, France",
+        "type": "Contract",
+        "workType": "",
+        "start": {
+          "year": "2023",
+          "month": "08"
+        },
+        "end": {
+          "year": "2024",
+          "month": "01"
+        },
+        "detail": "- Designed an AI-powered recommendation engine combining LLMs and behavioral analytics to raise personalization accuracy by 35%.\n- Delivered real-time inference services with 99.98% uptime and 40% lower latency.\n- Deployed Kubernetes- and Docker-based CI/CD pipelines supporting continuous delivery with zero downtime.\n- Tuned caching layers and database performance to increase throughput by 45% while reducing infrastructure costs by 15%."
+      },
+      {
+        "role": "Software Engineer",
+        "company": "APK Group (Amn Pardazan Kavir)",
+        "location": "Yazd, Iran",
+        "type": "Full-time",
+        "workType": "",
+        "start": {
+          "year": "2020",
+          "month": "11"
+        },
+        "end": {
+          "year": "2023",
+          "month": "09"
+        },
+        "detail": "- Researched and optimized kernel and networking layers to deliver 40 Gbps firewall throughput through hardware acceleration.\n- Applied automated deployment and monitoring workflows, shortening delivery cycles by 20%.\n- Maintained Linux/FreeBSD infrastructure with 99.99% uptime supporting 1,000+ concurrent sessions.\n- Enhanced kernel modules and zero-copy packet paths, cutting network latency by 35%."
+      },
+      {
+        "role": "Backend Developer",
+        "company": "Saafaa",
+        "location": "Yazd, Iran",
+        "type": "Full-time",
+        "workType": "",
+        "start": {
+          "year": "2019",
+          "month": "03"
+        },
+        "end": {
+          "year": "2020",
+          "month": "11"
+        },
+        "detail": "- Architected backend systems for geospatial data management to improve query precision by 40%.\n- Enforced secure transaction frameworks and automation layers ensuring data integrity.\n- Assembled an AI-powered irrigation platform leveraging predictive analytics and IoT, reducing water usage by 50%."
+      },
+      {
+        "role": "Backend Developer",
+        "company": "Boshrapardaz",
+        "location": "Yazd, Iran",
+        "type": "Part-time",
+        "workType": "",
+        "start": {
+          "year": "2016",
+          "month": "10"
+        },
+        "end": {
+          "year": "2018",
+          "month": "10"
+        },
+        "detail": "- Engineered backend platforms for web and VoIP services to enhance reliability by 25%.\n- Utilized peer-to-peer VoIP frameworks (ejabberd, Asterisk), minimizing call latency.\n- Automated payroll and accounting workflows, reducing processing time by 60%.\n- Established ELK-based dashboards enabling real-time performance analytics."
+      },
+      {
+        "role": "Backend Developer",
+        "company": "Freelance",
+        "location": "Yazd, Iran",
+        "type": "Freelance",
+        "workType": "",
+        "start": {
+          "year": "2014",
+          "month": "09"
+        },
+        "end": {
+          "year": "2016",
+          "month": "09"
+        },
+        "detail": "- Constructed backend applications for small businesses emphasizing scalability and uptime.\n- Refined database schemas and queries to raise operational efficiency by 30%.\n- Implemented CI/CD and version control pipelines, decreasing deployment errors by 40%."
+      }
+    ],
+    "education": {
+      "grade": "Bachelor of Engineering (BE), Computer Software Engineering",
+      "university": "Science & Arts University",
+      "start": {
+        "year": "",
+        "month": ""
+      },
+      "end": {
+        "year": "",
+        "month": ""
+      }
+    },
+    "languages": [
+      {
+        "language": "English",
+        "level": "Professional Working Proficiency"
+      }
+    ]
+
+  - WORK_DESCRIPTION:
+Full job description
+With extensive experience in developing biologics and bioconjugates, we offer a seamless service delivered by fully integrated teams, from early discovery to commercial manufacturing.
+
+Forward-thinking and committed, we find the best solution and use the right technologies to design, develop and manufacture your products to ensure we get vital medicines to patients quickly and safely.
+
+We are dedicated to quality excellence. We are driven to get better treatments to market, efficiently and responsibly by reducing timelines and delivering the highest quality products and services.
+
+We are Abzena. More than a CDMO, we are a responsible and dedicated partner that takes care of your products from concept to patient.
+
+
+The IFS ERP System Administrator serves as a subject matter expert and will be responsible for overseeing the installation, management, upgrades, and support of the IFS Enterprise Resource Planning (ERP) system. This individual will providefunctional and technical advice and support to end-users.
+
+The IFS ERP System Administrator will apply analytical, communication, and problem-solving skills to help identify, communicate, and resolve issues. In addition, this individual will also be responsible foridentifying and implementing system improvements to optimize performance and uptime in a manner consistent with organizational goals, industry best practices, and regulatory requirements (e.g. FDA, ICH).
+Responsibilities
+
+    Serves as primary Subject Matter Expert (SME) for the IFS ERP system
+    Works closely with vendors, contractors and the development teams to resolve certain issues that cannot be resolved in-house
+    Establishes and maintain effective working relationships with end users and suppliers
+    Maintains security administration of ERP system and ensures users have proper access levels to the appropriate functionality
+    Develops and maintains a knowledge base of best practices for end users
+    Authors and maintains the user manual for staff
+    Ensures strict adherence to software licensing rules and maintains careful records
+    Responds promptly to end user and management needs and meets all SLAs
+    Talks staff or clients through a series of actions, either face-to-face or over the telephone, to help set up systems or resolve issues
+    Analyzes software application issues and determines effective course of action to improve operational functionality
+    Participates in after-hours support during evenings and weekends as needed
+    Leads the evaluation, testing, and implementation of new modules and upgraded software
+    Interfaces with the software vendors for any application bug resolution or application maintenance issues
+    Participates in disaster recovery planning and testing
+    Tests and evaluates new product features from the supplier
+    Participates in routine meetings related to the ERP system and core IT Operational systems
+    Proactively anticipates issues and make recommendations
+    Carries out any other duties that are reasonably requested
+    Operates to the highest ethical and moral standards.
+    Complies with Abzena's policies and procedures.
+    Communicates effectively with clients, supervisors, colleagues and staff.
+    Participates effectively as a team player in all aspects of Abzena's business.
+    Adheres to quality standards set by regulations and Abzena policies, procedures, and mission.
+    Performs other duties as assigned.
+
+Qualifications
+
+    At least three (3) years of experience in a similar role
+    At least two (2) years of experience using the ERP system from IFS
+    Proven ability to provide strong initiatives, establish personal goals, and take responsibility for meeting them within defined timelines
+    Proven ability to function in a dynamic environment subject to spontaneous changes in schedules and priorities
+    Experience in customer service
+    Working knowledge of GCP, cGMP and/or ICH guidelines
+
+UK EEO: Abzena is committed to promoting equal opportunities in employment. All our employees and any job applicants will receive equal treatment regardless of age, disability, gender reassignment, marital or civil partner status, pregnancy or maternity, race, colour, nationality, ethnic or national origin, religion or belief, sex or sexual orientation (“Protected Characteristics”).
+
+  - DATE: 2025-10-29
+  - NAME: Abzena 
+      
+
+
+  Example skeleton output (shape only; values are illustrative):
+    "applyDetail": {
+      "role": "Senior Technical Lead",
+      "company": "NAME",
+      "location": "London, UK (Hybrid)",
+      "jobType": "Full-time",
+      "salary": "",
+      "applyDateTime": "DATE",
+      "status": "Targeting",
+      "link": "https://example.com/jobs/123",
+      "address": "Hybrid (2 days on-site)"
+    },
+    "coreSkills": [
+      { "category": "Backend", "skills": ["Python", "FastAPI", "Django", "gRPC/REST APIs", "Async I/O", "Microservices"] },
+      { "category": "Frontend", "skills": ["React", "TypeScript", "Next.js"] },
+      { "category": "DevOps and Cloud", "skills": ["AWS", "GCP", "Azure", "Kubernetes", "Docker", "Terraform", "Ansible", "CI/CD (GitHub Actions, GitLab CI)", "NGINX", "Linux/FreeBSD"] },
+      { "category": "AI", "skills": ["LLMs", "RAG pipelines", "LangChain", "Semantic Kernel", "AutoGen", "Workflow automation"] },
+      { "category": "Databases", "skills": ["PostgreSQL", "Redis", "MongoDB", "Elasticsearch", "Query optimization", "Schema design"] },
+      { "category": "Other", "skills": ["Cloud security", "Observability (ELK/Prometheus/Grafana)", "Incident response", "Performance testing", "Secrets management", "Agile delivery", "Mentoring"] }
+    ]
+  }

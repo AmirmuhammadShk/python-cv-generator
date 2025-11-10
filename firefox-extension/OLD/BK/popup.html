@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>job-apply</title>
+    <style>
+      /* Base sizing */
+      body { font: 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial; margin: 16px; width: 380px; }
+      /* When settings tab is active, double width and panel height */
+      body.settings-open { width: 760px; }
+      body.settings-open .settings-panel { max-height: 520px; }
+
+      /* Top bar / tabs */
+      .topbar { margin-bottom: 10px; }
+      .tabs { display: flex; gap: 8px; align-items: center; }
+      .tab-btn { padding: 6px 12px; border-radius: 8px; border: 1px solid #d0d7de; background: #f9fafb; cursor: pointer; }
+      .tab-btn.active { background: #2563eb; color: #fff; border-color: #2563eb; }
+      #clearBtn { padding: 6px 12px; border-radius: 8px; border: 1px solid #111827; background: #111827; color: #fff; cursor: pointer; }
+
+      .hidden { display: none; }
+      .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+      label { display: block; margin: 8px 0 4px; font-weight: 600; }
+      input[type="text"], textarea, select { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #d0d7de; border-radius: 6px; }
+      textarea { min-height: 120px; resize: vertical; }
+      button { padding: 8px 12px; border: none; border-radius: 6px; cursor: pointer; background: #2563eb; color: #fff; font-weight: 600; }
+      .status { margin-top: 10px; color: #6b7280; font-size: 12px; min-height: 18px; }
+      .error { border-color: #b42318 !important; }
+      .error-text { color: #b42318; font-size: 12px; margin-top: 4px; }
+
+      .spinner { width: 22px; height: 22px; border: 3px solid #d1d5db; border-top-color: #2563eb; border-radius: 50%; animation: spin 1s linear infinite; }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      .inline { display: inline-flex; align-items: center; gap: 8px; }
+      .label { font-weight: 700; }
+
+      /* Settings panel */
+      .settings-panel { max-height: 260px; overflow: auto; padding-right: 4px; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px; background: #fff; }
+
+      /* Multi-entry sections */
+      .section { margin-top: 14px; }
+      .section h3 { margin: 6px 0 8px; font-size: 14px; }
+      .add-btn { background: #10b981; border: none; padding: 6px 10px; border-radius: 6px; color: #fff; font-weight: 600; cursor: pointer; }
+      .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+      .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+      .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; }
+      .entry { border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px; margin-bottom: 10px; background: #fafafa; }
+      .entry small { color: #6b7280; }
+    </style>
+  </head>
+  <body>
+    <!-- Top bar with tabs & clear -->
+    <div class="topbar">
+      <div class="tabs">
+        <button id="tabApply" class="tab-btn active" type="button">Apply</button>
+        <button id="tabSetting" class="tab-btn" type="button">Setting</button>
+        <button id="clearBtn" type="button" title="Clear saved state">Clear</button>
+      </div>
+    </div>
+
+    <!-- APPLY TAB -->
+    <div id="tabApplyPane">
+      <label for="job">Job</label>
+      <input id="job" type="text" placeholder="Senior Developer" />
+      <div id="jobErr" class="error-text hidden">Job is required</div>
+
+      <label for="company">Company name</label>
+      <input id="company" type="text" placeholder="Acme Inc." />
+      <div id="companyErr" class="error-text hidden">Company name is required</div>
+
+      <div class="row" style="margin-top:12px;">
+        <button id="checkBtn" type="button">Check</button>
+      </div>
+
+      <div id="status" class="status"></div>
+
+      <div id="generateStep" class="row hidden" style="margin-top:12px;">
+        <button id="generateBtn" type="button">Generate Prompt</button>
+        <div id="genLoading" class="spinner hidden" aria-hidden="true"></div>
+        <div id="genDone" class="inline hidden">
+          <span class="label">Prompt Generated</span>
+          <button id="copyBtn" type="button">Copy</button>
+        </div>
+      </div>
+
+      <div id="updatesSection" class="hidden" style="margin-top:12px;">
+        <label for="updates">CV Updates</label>
+        <textarea id="updates" placeholder="Add your updates here..."></textarea>
+        <div id="updatesErr" class="error-text hidden">Updates cannot be empty</div>
+        <div class="row" style="margin-top:8px;">
+          <button id="createCvBtn" type="button" disabled>Create CV</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTING TAB -->
+    <div id="tabSettingPane" class="hidden">
+      <div class="settings-panel">
+        <!-- Basics -->
+        <div class="section">
+          <h3>Basics</h3>
+          <div class="grid-2">
+            <div>
+              <label for="s_name">Name</label>
+              <input id="s_name" type="text" placeholder="Your full name" />
+            </div>
+            <div>
+              <label for="s_role">Role</label>
+              <input id="s_role" type="text" placeholder="e.g., Frontend Engineer" />
+            </div>
+            <div>
+              <label for="s_email">Email</label>
+              <input id="s_email" type="text" placeholder="you@example.com" />
+            </div>
+            <div>
+              <label for="s_phone">Phone</label>
+              <input id="s_phone" type="text" placeholder="+1 555 123 4567" />
+            </div>
+            <div>
+              <label for="s_linkedin">LinkedIn</label>
+              <input id="s_linkedin" type="text" placeholder="https://www.linkedin.com/in/username" />
+            </div>
+            <div>
+              <label for="s_address">Address</label>
+              <input id="s_address" type="text" placeholder="City, Country" />
+            </div>
+          </div>
+          <div style="margin-top:8px;">
+            <label for="s_summary">Summary</label>
+            <textarea id="s_summary" placeholder="Short professional summary..."></textarea>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div class="section">
+          <h3>Education</h3>
+          <div id="eduList"></div>
+          <button id="addEduBtn" type="button" class="add-btn">+ Add Education</button>
+          <small>Fields: Degree, Field, Uni, Start (optional), End (optional)</small>
+        </div>
+
+        <!-- Experience -->
+        <div class="section">
+          <h3>Experience</h3>
+          <div id="expList"></div>
+          <button id="addExpBtn" type="button" class="add-btn">+ Add Experience</button>
+          <small>Fields: Company, Role, City, Country, Work-Type, Start, End, Description</small>
+        </div>
+
+        <!-- Languages -->
+        <div class="section">
+          <h3>Languages</h3>
+          <div id="langList"></div>
+          <button id="addLangBtn" type="button" class="add-btn">+ Add Language</button>
+          <small>Level: Beginner, Pro, Fluent</small>
+        </div>
+
+        <!-- Skills -->
+        <div class="section">
+          <h3>Skills</h3>
+          <div id="skillList"></div>
+          <button id="addSkillBtn" type="button" class="add-btn">+ Add Skill</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

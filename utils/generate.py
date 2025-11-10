@@ -10,7 +10,7 @@ from reportlab.platypus import (
     Table, TableStyle, HRFlowable, KeepTogether
 )
 from reportlab.lib.units import inch
-from reportlab.lib.enums import TA_CENTER
+from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib import colors
 from reportlab.pdfbase.pdfmetrics import stringWidth
 
@@ -183,9 +183,9 @@ def create_cv_pdf(data: dict, output_pdf_path: str):
     content = []
 
     header_style = ParagraphStyle('Header', parent=styles['Heading1'], fontSize=22,
-                                  alignment=TA_CENTER, spaceAfter=6)
+                                  alignment=TA_LEFT, spaceAfter=6)
     role_style = ParagraphStyle('Role', parent=styles['Heading2'], fontSize=12,
-                                alignment=TA_CENTER, textColor="grey", spaceAfter=12)
+                                alignment=TA_LEFT, spaceAfter=12)
     section_header = ParagraphStyle('SectionHeader', parent=styles['Heading2'], fontSize=14,
                                     spaceBefore=6, spaceAfter=6, fontName="Helvetica-Bold")
     normal = styles['Normal']
@@ -197,40 +197,39 @@ def create_cv_pdf(data: dict, output_pdf_path: str):
     content.append(Paragraph(data.get('name', ''), header_style))
     content.append(Paragraph(data.get('role', ''), role_style))
 
+  
+
     # Contact
     contact = { (k.lower() if isinstance(k, str) else k): v for k, v in (data.get('contact', {}) or {}).items() }
-    contact_link_style = ParagraphStyle('ContactLink', parent=normal, alignment=TA_CENTER, fontSize=9, textColor="blue")
-    contact_text_style = ParagraphStyle('ContactText', parent=normal, alignment=TA_CENTER, fontSize=9)
+    contact_link_style = ParagraphStyle('ContactLink', parent=normal, alignment=TA_LEFT, fontSize=9)
+    contact_text_style = ParagraphStyle('ContactText', parent=normal, alignment=TA_LEFT, fontSize=9)
 
-    line1 = []
+    line = []
+    linkedin = (contact.get("linkedin") or "").strip()
+    if linkedin:
+        line.append(f"LinkedIn: {linkedin}")
     email = (contact.get("email") or "").strip()
     if email:
-        line1.append(f"<link href='mailto:{email}'>{email}</link>")
-    li = contact.get("linkedin", "")
-    gh = contact.get("github", "")
-    if li: line1.append(f"<link href='{li}'>LinkedIn</link>")
-    if gh: line1.append(f"<link href='{gh}'>GitHub</link>")
-    if line1:
-        content.append(Paragraph(" . ".join(line1), contact_link_style))
-
-    line2 = []
-    addr = (contact.get("address") or "").strip()
-    if addr: line2.append(addr)
+        line.append(f"Email: {email}")
+    address = (contact.get("address") or "").strip()
+    if address:
+        line.append(f"Address: {address}")
     phone = (contact.get("phone") or "").strip()
-    if phone: line2.append(phone)
-    if line2:
-        content.append(Paragraph(" . ".join(line2), contact_text_style))
+    if phone:
+        line.append(f"Mobile: {phone}")
 
-    content.append(Spacer(1, 0.18 * inch))
+    if line:
+        content.append(Paragraph("<br/>".join(line), contact_text_style))
+
 
     # Summary
     content.append(section_rule())
-    content.append(Paragraph("Professional Summary", section_header))
+    content.append(Paragraph("Summary", section_header))
     content.append(Paragraph(data.get("summary", "") or "", normal))
 
     # Core Skills
     content.append(section_rule())
-    content.append(Paragraph("Core Skills", section_header))
+    content.append(Paragraph("Skills", section_header))
     for group in data.get("coreSkills", []) or []:
         cat = group.get("category", "")
         skills_line = ", ".join(group.get("skills", []) or [])
@@ -239,7 +238,7 @@ def create_cv_pdf(data: dict, output_pdf_path: str):
 
     # Experience
     content.append(section_rule())
-    content.append(Paragraph("Professional Experience", section_header))
+    content.append(Paragraph("Experience", section_header))
     for i, exp in enumerate(data.get("experiences", []) or []):
         date_range = format_date_range(exp.get('start', {}), exp.get('end', {}))
         duration = calculate_duration(exp.get('start', {}), exp.get('end', {}))

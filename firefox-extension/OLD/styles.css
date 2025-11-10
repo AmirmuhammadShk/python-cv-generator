@@ -1,0 +1,90 @@
+/* Skills chips layout */
+.chips {
+  display: flex;
+  flex-wrap: wrap;       /* allow many per row */
+  gap: 6px;              /* compact spacing */
+  align-items: flex-start;
+}
+
+/* Individual chip */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;                     /* smaller to fit more per row */
+  border: 1px solid #d0d7de;            /* visible border */
+  background: #fff;
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 1;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Skill label inside chip (truncate long words) */
+.chip .label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;                     /* keep chips compact */
+}
+
+/* Smaller delete button/icon */
+.chip .del-btn {
+  width: 14px;                          /* smaller icon */
+  height: 14px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid #e5e7eb;            /* subtle ring */
+  background: #f9fafb;
+  color: #6b7280;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  line-height: 1;
+  font-size: 10px;                      /* small “×” */
+}
+
+.chip .del-btn:hover {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #fff;
+}
+.entry { position: relative; }
+.entry .entry-del {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.entry .entry-del:hover {
+  background: #ef4444;
+  color: #fff;
+  border-color: #ef4444;
+}
+/* Headings with add button inline */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.section-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
