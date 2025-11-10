@@ -1,0 +1,4 @@
+# Global configuration for your project
+paths:
+  applies_dir: "/home/amir/Work/Personal/Jobuine/applies"
+  store_file: "/home/amir/Work/Personal/Jobuine/applies/store.xlsx"

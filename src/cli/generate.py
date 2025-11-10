@@ -9,6 +9,7 @@ from reportlab.platypus import (
     SimpleDocTemplate, Paragraph, Spacer, ListFlowable, ListItem,
     Table, TableStyle, HRFlowable, KeepTogether
 )
+from core.config import get_store_file
 from reportlab.lib.units import inch
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib import colors
@@ -306,7 +307,8 @@ def main():
     parser.add_argument("--excel-name", default="All_applyDetail.xlsx", help="Excel file name stored next to this script")
     args = parser.parse_args()
 
-    in_dir = args.dir
+    # in_dir = args.dir
+    in_dir = os.path.abspath(os.path.join(project_root, in_dir))
     if not os.path.isdir(in_dir):
         print(f"❌ '{in_dir}' is not a directory.", file=sys.stderr)
         sys.exit(1)
@@ -318,7 +320,11 @@ def main():
 
     # Excel setup
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    excel_path = os.path.join(script_dir, args.excel_name)
+    # excel_path = os.path.join(script_dir, args.excel_name)
+    # Save Excel in the data/ directory at project root
+    project_root = os.path.abspath(os.path.join(script_dir, ".."))
+    # excel_path = os.path.join(project_root, "data", args.excel_name)
+    excel_path = str(get_store_file())
     wb, ws = open_or_create_excel(excel_path)
 
     # Generate PDFs
