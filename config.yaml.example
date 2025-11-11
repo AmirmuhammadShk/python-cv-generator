@@ -1,0 +1,3 @@
+applies_dir: apply dir path
+store_file: xlsx file to store applies
+current_apply_dir: leave this empty

@@ -31,9 +31,9 @@ def main():
                 config = {}
         applies_dir = Path(config.get("applies_dir", root_dir / "applies"))
     else:
+        print('2')
         applies_dir = root_dir / "applies"
         config = {}
-
     # --- User input ---
     company_name = input("🏢 Enter company name: ").strip()
     if not company_name:
@@ -90,6 +90,12 @@ def main():
     with open(prompt_output_path, "w", encoding="utf-8") as f:
         f.write(filled_prompt)
     print(f"✅ Generated prompt.txt → {prompt_output_path}")
+
+    cv_data_path = final_dir/ "cv_data.json"
+    with open(cv_data_path, "w", encoding="utf-8") as f:
+        f.write("{}")
+    print(f"✅ Generated cv_data.json → {cv_data_path}")
+    
 
     # --- Update config.yaml ---
     config["current_apply_dir"] = str(final_dir)

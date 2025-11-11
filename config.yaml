@@ -1,4 +1,0 @@
-paths:
-  applies_dir: path to apply store dir
-  store_file: path to loggin xlsx store.xlsx
-current_apply_dir: leave empty

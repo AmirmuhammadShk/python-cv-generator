@@ -1,0 +1,85 @@
+{
+  "applyDetail": {
+    "role": "Software Engineer",
+    "company": "TechNova Solutions",
+    "location": "San Francisco, CA, USA",
+    "jobType": "Full-time",
+    "salary": "$120,000 - $140,000 per year",
+    "applyDateTime": "2025-10-15T14:30:00Z",
+    "status": "Interview Scheduled",
+    "link": "https://careers.technova.com/jobs/software-engineer-12345",
+    "address": "500 Mission Street, San Francisco, CA 94105"
+  },
+  "name": "John Doe",
+  "role": "Full Stack Developer",
+  "contact": {
+    "email": "johndoe@example.com",
+    "linkedin": "https://www.linkedin.com/in/johndoe",
+    "github": "https://github.com/johndoe",
+    "personalWebsite": "https://johndoe.dev",
+    "address": "123 Main Street, San Francisco, CA 94105",
+    "phone": "+1 (415) 555-0147"
+  },
+  "summary": "Experienced Full Stack Developer with over 6 years of expertise in building scalable web applications using React, Node.js, and Python. Passionate about designing clean, efficient code and leading cross-functional teams to deliver impactful software solutions.",
+  "experiences": [
+    {
+      "role": "Senior Full Stack Engineer",
+      "company": "BrightPath Technologies",
+      "location": "Remote",
+      "type": "Employment",
+      "workType": "Full-time",
+      "start": { "year": "2022", "month": "05" },
+      "end": "Present",
+      "detail": "Led a team of 4 developers to design and deploy a microservices-based e-commerce platform. Improved backend performance by 30% and reduced cloud costs by optimizing API usage."
+    },
+    {
+      "role": "Software Engineer",
+      "company": "TechNova Solutions",
+      "location": "San Francisco, CA",
+      "type": "Employment",
+      "workType": "Full-time",
+      "start": { "year": "2019", "month": "03" },
+      "end": "2022-04",
+      "detail": "Developed RESTful APIs and integrated third-party services for analytics and payment processing. Contributed to frontend development using React and TypeScript."
+    },
+    {
+      "role": "Junior Web Developer",
+      "company": "NextVision Labs",
+      "location": "Los Angeles, CA",
+      "type": "Employment",
+      "workType": "Full-time",
+      "start": { "year": "2017", "month": "01" },
+      "end": "2019-02",
+      "detail": "Built internal tools with Django and Vue.js. Improved code quality through automated testing and CI/CD integration."
+    }
+  ],
+  "coreSkills": [
+    {
+      "category": "Programming Languages",
+      "skills": ["JavaScript", "Python", "TypeScript", "SQL"]
+    },
+    {
+      "category": "Frameworks & Tools",
+      "skills": ["React", "Node.js", "Express", "Django", "FastAPI"]
+    },
+    {
+      "category": "Cloud & DevOps",
+      "skills": ["AWS", "Docker", "Kubernetes", "GitHub Actions"]
+    },
+    {
+      "category": "Databases",
+      "skills": ["PostgreSQL", "MongoDB", "Redis"]
+    }
+  ],
+  "priority": ["Remote-first companies", "Backend-heavy roles", "AI or data-driven products"],
+  "education": {
+    "grade": "Bachelor of Science in Computer Science",
+    "university": "University of California, Berkeley",
+    "start": { "year": "2013", "month": "09" },
+    "end": { "year": "2017", "month": "06" }
+  },
+  "languages": [
+    { "language": "English", "level": "Native" },
+    { "language": "Spanish", "level": "Professional Working Proficiency" }
+  ]
+}

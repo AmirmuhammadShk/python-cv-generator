@@ -287,47 +287,50 @@ def create_cv_pdf(data: dict, output_pdf_path: str):
 # MAIN
 # =========================
 def main():
-    parser = argparse.ArgumentParser(description="Generate PDFs and append applyDetail data into the global Excel file.")
-    args = parser.parse_args()
-
-    # Load current directory from config.yaml
+    """Generate PDFs and append applyDetail data into the global Excel file."""
+    # --- Load config paths ---
     try:
-        in_dir = str(get_current_apply_dir())
+        in_dir = get_current_apply_dir()
+        excel_path = get_store_file()
     except Exception as e:
-        print(e)
+        print(f"❌ Config error: {e}", file=sys.stderr)
         sys.exit(1)
 
-    if not os.path.isdir(in_dir):
-        print(f"❌ '{in_dir}' is not a directory.", file=sys.stderr)
+    # --- Validate input directory ---
+    if not in_dir.exists() or not in_dir.is_dir():
+        print(f"❌ Invalid apply directory: {in_dir}", file=sys.stderr)
         sys.exit(1)
 
-    json_files = sorted(glob.glob(os.path.join(in_dir, "*.json")))
+    # --- Find JSON files ---
+    json_files = sorted(glob.glob(str(in_dir / "*.json")))
     if not json_files:
-        print(f"⚠️ No .json files found in '{in_dir}'.")
+        print(f"⚠️ No JSON files found in '{in_dir}'. Nothing to process.")
         sys.exit(0)
 
-    # Excel path from config
-    excel_path = str(get_store_file())
-    wb, ws = open_or_create_excel(excel_path)
+    # --- Open or create Excel file ---
+    wb, ws = open_or_create_excel(str(excel_path))
 
+    # --- Generate PDFs ---
     pdf_count = 0
     for path in json_files:
         try:
             data = load_json(path)
             pdf_name = f"{safe_name_from_json(data, path)}.pdf"
-            out_pdf = os.path.join(os.path.dirname(path), pdf_name)
-            create_cv_pdf(data, out_pdf)
+            out_pdf = in_dir / pdf_name
+            create_cv_pdf(data, str(out_pdf))
             pdf_count += 1
         except Exception as e:
             print(f"⚠️ Skipping PDF for '{os.path.basename(path)}': {e}", file=sys.stderr)
 
-    added = append_applydetail_rows(in_dir, ws)
+    # --- Append Excel rows ---
+    added = append_applydetail_rows(str(in_dir), ws)
+    autosize_columns(ws)
+    wb.save(str(excel_path))
+
+    # --- Print summary ---
     if added:
-        autosize_columns(ws)
-        wb.save(excel_path)
         print(f"✅ Added {added} rows → {excel_path}")
     else:
-        wb.save(excel_path)
         print(f"⚠️ No applyDetail found; Excel ensured at {excel_path}")
 
     print(f"✅ PDFs created: {pdf_count}")
