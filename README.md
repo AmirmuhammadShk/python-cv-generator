@@ -19,8 +19,8 @@ Whether you're applying for jobs, tracking your progress, generating documents, 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/jobuine.git
-cd jobuine
+git clone https://github.com/AmirmuhammadShk/Jobuine.git
+cd Jobuine
 ```
 
 ### 2. Create and Activate a Virtual Environment
