@@ -31,7 +31,6 @@ def main():
                 config = {}
         applies_dir = Path(config.get("applies_dir", root_dir / "applies"))
     else:
-        print('2')
         applies_dir = root_dir / "applies"
         config = {}
     # --- User input ---
